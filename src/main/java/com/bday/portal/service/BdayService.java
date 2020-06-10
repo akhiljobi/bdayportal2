@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -73,9 +74,33 @@ public class BdayService {
 	return l1;
 	}
 	
-	public Bday addEmployee(Bday bday) {
-		return bdayRepo.save(bday);
+	public List<Integer> getEidList(){
+		List<Integer> L1=new ArrayList<>();
+		List<Bday> xlist=new ArrayList<>();
+		xlist=bdayRepo.findAll();
+		for(Bday x: xlist) {
+			L1.add((int) x.getEid());
+		}
+		return L1;
 	}
+	
+	public String addBday(Bday bday) {
+		List<String> L1=new ArrayList<>();
+		List<Bday> xlist=new ArrayList<>();
+		xlist=bdayRepo.findAll();
+		for(Bday x: xlist) {
+			L1.add(x.getEid()+"");
+		}
+		
+		if(L1.contains(bday.getEid()+"")) {
+			return "Id Already present in database.. please contact Admin";
+		}
+		else {
+		bdayRepo.save(bday);
+		return "Bday Successfully added";
+		}
+	}
+		
 
 	public String delete(Long eid) {
 		bdayRepo.deleteById(eid);
@@ -119,7 +144,14 @@ public class BdayService {
 		return l2;
 	}
 	
-
+public String passkey(String abc) {
+	System.out.println("abccccc..."+abc);
+	if(abc.equalsIgnoreCase("1234")) {
+		return "a";
+		
+	}
+	else return "b";
+}
 	
 	
 }
