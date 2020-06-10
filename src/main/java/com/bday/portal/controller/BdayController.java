@@ -40,6 +40,7 @@ public class BdayController {
 	  @GetMapping("/bdayslist") 
 	  public List<Integer> getEidList() { 
 		  
+		  
 		  return bdayService.getEidList(); 
 		  }
 	  
